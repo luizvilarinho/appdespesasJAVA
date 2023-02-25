@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width='device-width', initial-scale=1.0">
+    <title>Loginpage</title>
+    <style>
+      
+        label{
+            width: 100%;
+            display: block;
+            margin: 20px 0 0 auto;
+        }
+        button{
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+        <div>
+            <label for="lbemail">Email</label>
+            <input type="text" name="email" id="lbemail">
+        </div>
+        <div>
+            <label for="lbpassword">password</label>
+            <input type="text" name="password" id="lbpassword">
+        </div>
+        
+        <button type="submit" onClick="sendForm()">ENVIAR</button>
+        <button type="submit" onClick="findAll()">FINDA ALL</button>
+
+    <script>
+        async function sendForm(){
+            let url = "http://localhost:8080/api/auth";
+            let data = {
+                "email": "user16@gmail.com",
+                "password" : "123"
+            }
+
+            const response = await fetch(url, {
+                method:"POST",
+                cache: "no-cache",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const resp = await response.json()
+
+            console.log("RESPONSE", resp)
+            return resp;
+        }
+
+        async function findAll(){
+            let url = "http://localhost:8080/api/user";
+            let data = {
+                "email": "user16@gmail.com",
+                "password" : "123"
+            }
+
+            const response = await fetch(url, {
+                method:"GET",
+                cache: "no-cache",
+                cookie: 'ad_access_tkn=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhcHAgZGVzcGVzYXMiLCJzdWIiOiI4Yzg1NzBmYS0wMGQ4LTRkNTktYTNiZS1lNDJmOTRmOWE5MzAiLCJpYXQiOjE2NjcwNTUwMTgsImV4cCI6MTY2ODA1NTAxOH0.cdteciNkB-HwO2snLtIja-Oum1Jh5haG5ZPyyRYtDt0; JSESSIONID=71B21792C02C5E8B8597DE7FC8C93314',
+                "Access-Control-Allow-Origin": "*",
+                headers:{
+                    "Content-Type": "application/json"
+                }
+            });
+
+            const resp = await response.json()
+
+            console.log("RESPONSE", resp)
+            return resp;
+        }
+
+    </script>
+</body>
+</html>
